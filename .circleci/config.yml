@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-              ansible-playbook -i inventory test.yml
+              ansible-playbook -i games test.yml
 workflows:
  # Name the workflow
   myWorkflow:
