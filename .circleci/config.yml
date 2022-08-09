@@ -47,7 +47,7 @@ jobs:
 #              ansible-playbook -i inventory test.yml
   Smoke_Test:
       docker:
-        - image: alpine: latest
+        - image: alpine:latest
       steps:
         - run: apk add --update curl
         - run:
