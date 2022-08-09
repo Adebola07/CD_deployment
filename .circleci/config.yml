@@ -46,6 +46,8 @@ jobs:
               --template-file template.yml \
               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
               --region us-east-1
+       - run: return 1
+       - destroy_environment       
 
   # Exercise: Config and Deployment
 #  configure_infrastructure: 
@@ -65,23 +67,23 @@ jobs:
 #          name: Run Playbook and Configure server
 #          command: |
 #              ansible-playbook -i inventory test.yml
-  Smoke_Test:
-      docker:
-        - image: alpine:latest
-      steps:
-        - run: apk add --update curl
-        - run:
-            name: smoke_test
-            command: |
-                URL = "https://blog.udacity.com/"
-                # Test if the website exists
-                if curl -s --head ${URL}
-                then
-                  return 0
-                else
-                  return 1
-                fi
-        - destroy_environment        
+#  Smoke_Test:
+#      docker:
+#        - image: alpine:latest
+#      steps:
+#        - run: apk add --update curl
+#        - run:
+#            name: smoke_test
+#            command: |
+#                URL = "https://blog.udacity.com/"
+#                # Test if the website exists
+#                if curl -s --head ${URL}
+#                then
+#                  return 0
+#                else
+#                  return 1
+#                fi
+#        - destroy_environment        
 
 
 workflows:
@@ -91,6 +93,6 @@ workflows:
       #- myjob1
       - create_infrastructure
       #- configure_infrastructure
-      - Smoke_Test:
-            requires:
-                - create_infrastructure
+      #- Smoke_Test:
+      #      requires:
+      #          - create_infrastructure
